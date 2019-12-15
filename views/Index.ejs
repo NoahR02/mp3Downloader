@@ -1,0 +1,75 @@
+<h1>MP3 Youtube Downloader</h1>
+<form id="searchForm" action="/getSongList" method="POST">
+<input type="search" name="songName" placeholder="type song here" />
+<br />
+<input type="submit" />
+</form>
+<ul>
+<% for(var i=0; i < obj.length; i++) { %>
+    <li> - <%= obj[i].children[0].data %> <form action="/download" method="POST" id="download">
+    <input type="submit" value ="Download" />
+    <input id="hiddenValue" type="text" name="songURL" value="<%= obj[i].attribs.href %>">
+    </form></li>
+    <hr />
+<% } %>
+</ul>
+
+<style>
+  body {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding-top:100px;
+  }
+  
+  #hiddenValue {
+    display: none;
+  }
+  
+  #searchForm {
+    text-align: center;
+    width: 100%;
+  }
+  
+  #searchForm input[type=search] {
+    margin-bottom: 2.5em;
+    padding: 10px 10px;
+    width: 30vw;
+    min-width: 250px;
+    background: white;
+    border: 1px solid black;
+  }
+  
+  #searchForm input[type=submit] {
+    margin-bottom: 3em;
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid black;
+  }
+  
+  ul {
+    margin:0 auto;
+    max-width: 900px;
+  }
+  h1 { text-align: center;  }
+  li {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style: none; 
+  height: 60px;
+  padding-right: 20px;
+  }
+  
+  ul #download {
+    cursor: pointer;
+    color: indigo;
+    border-bottom: 1px solid indigo;
+    margin-left: auto;
+  }
+  
+</style>
+
+<!-- data.children[0].data) !-->
