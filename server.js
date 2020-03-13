@@ -33,7 +33,7 @@ app.post("/download", (req, res) => {
   ytdl.getInfo(songURL, (err, info) => { 
     if(err) throw err;
     const songName = info.title;
-    ytdl(songURL)
+    ytdl(songURL, {quality: 'highestaudio'} )
     .pipe(fs.createWriteStream(`./music/${songName}.mp3`));
   });
   res.redirect("/");
