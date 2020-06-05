@@ -6,13 +6,23 @@
 </form>
 <ul>
 <% for(let i = 0; i < obj.length; ++i) { %>
-    <li> - <%= obj[i].children[0].data %> <form action="/download" method="POST" id="download">
-    <input type="submit" value ="Download" />
+    <li> - <%= obj[i].children[0].data %> <form onsubmit="onDownload()" action="/download" method="POST" id="download">
+    <input type="submit" value = "Download" />
     <input id="hiddenValue" type="text" name="songURL" value="<%= obj[i].attribs.href %>">
     </form></li>
     <hr />
 <% } %>
 </ul>
+
+<div id="downloading">
+  Downloading...
+</div>
+
+<script type="text/javascript">
+  const onDownload = () => {
+    document.getElementById("downloading").style.display = "flex";
+  }
+</script>
 
 <style>
   body {
@@ -21,6 +31,27 @@
   overflow-x: hidden;
   box-sizing: border-box;
   padding-top:100px;
+  }
+
+  #downloading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+
+    width: 320px;
+    height: 150px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    
+    background: white;
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+
+    display: none;
   }
   
   #hiddenValue {

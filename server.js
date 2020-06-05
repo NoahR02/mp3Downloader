@@ -47,16 +47,18 @@ app.post("/getSongList", (req, res) => {
   @type Function : Void,
   @description : Download the selected song then redirect to the home page.
 */
-app.post("/download", (req, res) => {
+app.post("/download", async (req, res) => {
   const songURL = `https://www.youtube.com${req.body.songURL}`;
-  ytdl.getInfo(songURL, (err, info) => {
-    if (err) throw err;
-    const songName = info.title;
-    ytdl(songURL, { quality: 'highestaudio' })
+  try {
+    const info = await ytdl.getInfo(songURL);
+    const songName = info.videoDetails.title;
+    ytdl(songURL, { quality: "highestaudio" })
     // Select mp3 as audio format and set the file name to the song name. Then download the song.
-      .pipe(fs.createWriteStream(`./music/${songName}.mp3`)); 
-  });
-  res.redirect("/");
+      .pipe(fs.createWriteStream(`./music/${songName}.mp3`)).on("finish", () => res.redirect("/"))
+  } catch(e) {
+    console.log("failed...");
+    return res.redirect("/");
+  }
 });
 
 
