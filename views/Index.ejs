@@ -5,7 +5,7 @@
 <input type="submit" />
 </form>
 <ul>
-<% for(var i=0; i < obj.length; i++) { %>
+<% for(let i = 0; i < obj.length; ++i) { %>
     <li> - <%= obj[i].children[0].data %> <form action="/download" method="POST" id="download">
     <input type="submit" value ="Download" />
     <input id="hiddenValue" type="text" name="songURL" value="<%= obj[i].attribs.href %>">
@@ -71,5 +71,3 @@
   }
   
 </style>
-
-<!-- data.children[0].data) !-->
